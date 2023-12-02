@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from sklearn import tree
 
 import json
 import pickle

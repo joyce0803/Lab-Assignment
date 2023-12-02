@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+
 import pickle
 from  sklearn import  datasets
 iris=datasets.load_iris()

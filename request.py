@@ -1,5 +1,5 @@
 import requests
-# Change the value of experience that you want to test
+
 url = 'http://127.0.0.1:5000/api'
 
 labels ={
