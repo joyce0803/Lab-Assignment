@@ -1,6 +1,7 @@
 import requests
 
-url = 'http://127.0.0.0:5000/iris'
+url = 'http://192.168.99.100:5000/iris'
+
 
 labels ={
   0: "setosa",
