@@ -17,7 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("--rm -p 8086:5000")
+                    docker.image(DOCKER_IMAGE).run("-p 8086:5000")
                 }
             }
         }
@@ -25,21 +25,19 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    sleep time: 10, unit: 'SECONDS' // Add a delay of 30 seconds (adjust as needed)
+                    sleep time: 10, unit: 'SECONDS'
                     bat 'python request.py'
                 }
             }
         }
 
-
         stage('Declarative: Post Actions') {
             steps {
                 script {
-                    // Stop the Docker container using the 'stop' command
-                    sh "docker stop <899f85580ff7>"
+                    // Stop and remove the Docker container
+                    sh "docker stop \$(docker ps -q --filter ancestor=${DOCKER_IMAGE}) && docker rm \$(docker ps -qa --filter ancestor=${DOCKER_IMAGE})"
                 }
             }
         }
-
     }
 }
