@@ -13,9 +13,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Provide the correct path to the 'pip' executable for Windows
-                    def pipCmd = isUnix() ? 'pip' : 'pip'
-                    sh "${pipCmd} install -r requirements.txt"
+                    // Use the correct path to the 'pip' executable for Windows
+                    def pipCmd = isUnix() ? 'pip' : 'C:\\Users\\jerri\\PycharmProjects\\Joyce Lab Assignment\\venv\\Scripts\\pip.exe'
+                    bat "${pipCmd} install -r requirements.txt"
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Run Project') {
             steps {
                 script {
-                    sh 'python model.py && python server.py'
+                    bat 'python model.py && python server.py'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    sh 'python request.py'
+                    bat 'python request.py'
                 }
             }
         }
