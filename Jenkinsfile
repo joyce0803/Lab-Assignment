@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_IMAGE = 'joyce0803/lab_ass_flask_api:latest'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -10,20 +14,10 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Run Docker Container') {
             steps {
                 script {
-                    // Use the correct path to the 'pip' executable for Windows
-                    def pipCmd = isUnix() ? 'pip' : 'C:\\Users\\jerri\\PycharmProjects\\Joyce Lab Assignment\\venv\\Scripts\\pip.exe'
-                    bat "${pipCmd} install -r requirements.txt"
-                }
-            }
-        }
-
-        stage('Run Project') {
-            steps {
-                script {
-                    bat 'python model.py && python server.py'
+                    docker.image(DOCKER_IMAGE).run('-p 5000:5000', '--rm')
                 }
             }
         }
@@ -31,8 +25,16 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    bat 'python request.py'
+                    sh 'python request.py'
                 }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                docker.image(DOCKER_IMAGE).stop()
             }
         }
     }
