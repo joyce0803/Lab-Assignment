@@ -2,7 +2,7 @@ FROM python:3.8.0
 
 LABEL authors="joyce"
 
-EXPOSE 6000
+EXPOSE 5000
 
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev
