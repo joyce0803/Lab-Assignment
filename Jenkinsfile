@@ -17,7 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run('-p 5000:5000', '--rm')
+                    docker.image(DOCKER_IMAGE).run("-p 5000:5000 --rm")
                 }
             }
         }
