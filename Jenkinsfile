@@ -17,7 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-d -p 8084:5000")
+                    docker.image(DOCKER_IMAGE).run("-d -p 8085:5000")
                 }
             }
         }
@@ -25,10 +25,12 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
+                    sleep time: 30, unit: 'SECONDS' // Add a delay of 30 seconds (adjust as needed)
                     bat 'python request.py'
                 }
             }
         }
+
 
         stage('Declarative: Post Actions') {
             steps {
