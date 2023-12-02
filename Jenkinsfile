@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = 'joyce0803/lab_ass_flask_api:latest'
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -14,22 +10,18 @@ pipeline {
             }
         }
 
-        stage('Pull Docker Image') {
+        stage('Install Dependencies') {
             steps {
                 script {
-                    // Pull Docker image
-                    docker.image(DOCKER_IMAGE).pull()
+                    sh 'pip install -r requirements.txt'
                 }
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Project') {
             steps {
                 script {
-                    // Run Docker container
-                    docker.image(DOCKER_IMAGE).withRun('-p 5000:5000 --rm') {
-                        // Perform any additional steps inside the container if needed
-                    }
+                    sh 'python model.py && python server.py'
                 }
             }
         }
@@ -37,18 +29,8 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    // Execute script to test API
                     sh 'python request.py'
                 }
-            }
-        }
-    }
-
-    post {
-        always {
-            script {
-                // Stop Docker container
-                docker.image(DOCKER_IMAGE).stop()
             }
         }
     }
