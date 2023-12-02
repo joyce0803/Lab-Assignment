@@ -17,7 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-p 8086:6000")
+                    docker.image(DOCKER_IMAGE).run("--rm --net=host")
                 }
             }
         }
