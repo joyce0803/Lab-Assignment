@@ -17,7 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-p 8086:5000")
+                    docker.image(DOCKER_IMAGE).run("-p 8085:5000")
                 }
             }
         }
