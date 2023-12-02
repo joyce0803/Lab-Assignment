@@ -25,7 +25,8 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    
+                    sh "docker logs \$(docker ps -q --filter ancestor=${DOCKER_IMAGE})"
+                    sleep time: 10, unit: 'SECONDS'
                     bat 'python request.py'
                 }
             }

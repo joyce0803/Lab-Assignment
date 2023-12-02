@@ -2,6 +2,7 @@ FROM python:3.8.0
 
 LABEL authors="joyce"
 
+EXPOSE 5000
 
 RUN apt-get update -y && \
     apt-get install -y python-pip python-dev
@@ -9,6 +10,8 @@ RUN apt-get update -y && \
 COPY ./requirements.txt /app/requirements.txt
 
 WORKDIR /app
+
+
 
 RUN pip install -r requirements.txt
 
