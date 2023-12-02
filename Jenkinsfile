@@ -17,7 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-p 8086:5000")
+                    docker.image(DOCKER_IMAGE).run("-p 8086:6000")
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    
+
                     sleep time: 10, unit: 'SECONDS'
                     bat 'python request.py'
                 }
