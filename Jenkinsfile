@@ -17,10 +17,11 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-p 5000:5000")
+                    docker.image(DOCKER_IMAGE).run("-p 8080:5000")
                 }
             }
         }
+
 
         stage('Test API') {
             steps {
