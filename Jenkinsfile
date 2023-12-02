@@ -22,8 +22,6 @@ pipeline {
             }
         }
 
-
-
         stage('Test API') {
             steps {
                 script {
@@ -35,7 +33,8 @@ pipeline {
         stage('Declarative: Post Actions') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).stop()
+                    // Stop the Docker container using the 'stop' command
+                    sh "docker stop <899f85580ff7>"
                 }
             }
         }
