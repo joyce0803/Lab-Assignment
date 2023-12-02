@@ -25,10 +25,11 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    sh 'python request.py'
+                    bat 'python request.py'
                 }
             }
         }
+
     }
 
     post {
