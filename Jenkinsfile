@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {dockerfile true}
 
     environment {
         DOCKER_IMAGE = 'joyce0803/lab_ass_flask_api:latest'
@@ -14,11 +14,22 @@ pipeline {
             }
         }
 
+        stage('Pull Docker Image') {
+            steps {
+                script {
+                    // Pull Docker image
+                    docker.image(DOCKER_IMAGE).pull()
+                }
+            }
+        }
+
         stage('Run Docker Container') {
             steps {
                 script {
                     // Run Docker container
-                    docker.image(DOCKER_IMAGE).run('-p 5000:5000', '--rm')
+                    docker.image(DOCKER_IMAGE).withRun('-p 5000:5000 --rm') {
+                        // Perform any additional steps inside the container if needed
+                    }
                 }
             }
         }
