@@ -13,8 +13,8 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Provide the full path to the 'pip' executable
-                    def pipCmd = isUnix() ? 'pip' : 'C:\\Users\\jerri\\PycharmProjects\\Joyce Lab Assignment\\venv\\Scripts\\pip.exe'
+                    // Provide the correct path to the 'pip' executable for Windows
+                    def pipCmd = isUnix() ? 'pip' : 'pip'
                     sh "${pipCmd} install -r requirements.txt"
                 }
             }
