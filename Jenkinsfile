@@ -25,7 +25,7 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    sleep time: 10, unit: 'SECONDS'
+                    
                     bat 'python request.py'
                 }
             }
