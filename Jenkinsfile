@@ -13,7 +13,9 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'pip install -r requirements.txt'
+                    // Provide the full path to the 'pip' executable
+                    def pipCmd = isUnix() ? 'pip' : 'C:\\Users\\jerri\\PycharmProjects\\Joyce Lab Assignment\\venv\\Scripts\\pip.exe'
+                    sh "${pipCmd} install -r requirements.txt"
                 }
             }
         }
