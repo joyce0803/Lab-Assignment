@@ -1,5 +1,5 @@
 pipeline {
-    agent {dockerfile true}
+    agent any
 
     environment {
         DOCKER_IMAGE = 'joyce0803/lab_ass_flask_api:latest'
