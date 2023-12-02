@@ -24,7 +24,7 @@ pipeline {
 
 
 
-        stage('Test API') {
+        stage('Test API') { 
             steps {
                 script {
                     bat 'python request.py'
