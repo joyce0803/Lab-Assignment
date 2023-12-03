@@ -17,18 +17,22 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-p 8088:5000")
+                    docker.image(DOCKER_IMAGE).run("-p 8082:5000")
                 }
             }
         }
 
-        stage('Declarative: Post Actions') {
+
+
+        stage('Test API') {
             steps {
                 script {
-                    // Stop and remove the Docker container
-                    sh "docker stop \$(docker ps -q --filter ancestor=${DOCKER_IMAGE}) && docker rm \$(docker ps -qa --filter ancestor=${DOCKER_IMAGE})"
+                    bat 'python request.py'
                 }
             }
         }
+
+        
+
     }
 }
