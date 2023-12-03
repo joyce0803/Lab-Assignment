@@ -10,16 +10,22 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Pull Image') {
             steps {
-                sh 'docker pull joyce0803/lab_ass_flask_api'
+                echo 'Pulling the image...'
+                script {
+                    env.IMAGE_ID = sh(script: 'docker pull joyce0803/lab_ass_flask_api:latest', returnStdout: true).trim()
+                }
             }
         }
 
 
-        stage('Run Docker Container') {
+        stage('Run Image') {
             steps {
-                sh 'docker run -d -p 5000:5000 joyce0803/lab_ass_flask_api'
+                echo 'Running the image...'
+                script {
+                    env.CONTAINER_ID = sh(script: 'docker run -d -p 8086:5000 joyce0803/lab_ass_flask_api:latest', returnStdout: true).trim()
+                }
             }
         }
 
@@ -29,6 +35,16 @@ pipeline {
                     # Use the provided test script
                     python request.py
                 '''
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                echo 'Cleaning up...'
+                script {
+                    sh 'docker stop ${CONTAINER_ID}'
+                    sh 'docker rm ${CONTAINER_ID}'
+                }
             }
         }
     }
