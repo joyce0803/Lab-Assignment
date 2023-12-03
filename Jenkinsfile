@@ -10,9 +10,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t joyce0803/lab_ass_flask_api .'
+                sh 'docker pull joyce0803/lab_ass_flask_api'
             }
         }
+
 
         stage('Run Docker Container') {
             steps {
