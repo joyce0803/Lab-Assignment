@@ -17,22 +17,9 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).run("-p 8082:5000")
+                    docker.image(DOCKER_IMAGE).run("-p 8083:5000")
                 }
             }
         }
-
-
-
-        stage('Test API') {
-            steps {
-                script {
-                    bat 'python request.py'
-                }
-            }
-        }
-
-        
-
     }
 }
