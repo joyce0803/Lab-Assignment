@@ -1,32 +1,31 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_IMAGE = 'joyce0803/lab_ass_flask_api:latest'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM',
-                          branches: [[name: '*/main']],
-                          userRemoteConfigs: [[credentialsId: '9a43752f-e2de-40b6-9037-543caf420f0b', url: 'https://github.com/joyce0803/Lab-Assignment.git']]])
+                git 'https://github.com/joyce0803/Lab-Assignment.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t joyce0803/lab_ass_flask_api .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                script {
-                    docker.image(DOCKER_IMAGE).run("-p 8086:5000")
-                }
+                sh 'docker run -d -p 5000:5000 joyce0803/lab_ass_flask_api'
             }
         }
 
-        stage('Test API') {
+        stage('Test Application') {
             steps {
-                script {
-                    sh 'python request.py'
-                }
+                sh '''
+                    # Use the provided test script
+                    python request.py
+                '''
             }
         }
     }
