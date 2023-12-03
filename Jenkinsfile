@@ -22,14 +22,6 @@ pipeline {
             }
         }
 
-        stage('Test API') {
-            steps {
-                script {
-                    bat 'python request.py'
-                }
-            }
-        }
-
         stage('Declarative: Post Actions') {
             steps {
                 script {
